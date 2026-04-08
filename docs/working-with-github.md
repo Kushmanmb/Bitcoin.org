@@ -69,9 +69,8 @@ need to re-create the branch and the pull request.
 
 1. Fetch upstream changes. `git fetch upstream`
 2. Checkout to your master branch. `git checkout master`
-3. Replace your master branch by the upstream master branch. `git reset --hard
-   upstream/master`
-4. Replace your master branch on GitHub. `git push origin master -f`
+3. Rebase your master branch on the upstream master branch. `git rebase upstream/master`
+4. Push your updated master branch to GitHub. `git push origin master`
 
 **Advanced GitHub Workflow**
 
