@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'html/proofer'
+require 'html-proofer'
 
 if ARGV[0].nil?
   path_to_check="./_site"
@@ -10,9 +10,7 @@ end
 
 ## Will throw an exception (exiting false) if any internal links don't
 ## work. The Makefile will terminate on the failure
-HTML::Proofer.new(
-    ## To test, uncomment the array below and comment out ./_site and :disable_external
-    #[ "/foo/bar#baz", "/foo/bar", "#", "#wallet", "/foo.css", "/bar.png", "/zh_TW/bitcoin-for-businesses" ],
+HTMLProofer.check_directory(
     path_to_check,
 
     {
@@ -23,10 +21,10 @@ HTML::Proofer.new(
         :disable_external => true,
 
         ## Check whether HTML is well-formed
-        :check_html => false,
-        
+        :checks => ['Links', 'Images', 'Scripts'],
+
         ## Links to ignore
-        :href_ignore => [
+        :ignore_urls => [
           '#',           ## hrefs pointing to the current page (htmlproofer fails them)
           /^$/,          ## anchors with no href attribute set (for clickable javascript elements)
           /^\/bin/,      ## /bin dir is not part of repository; holds Bitcoin Core binaries
@@ -37,7 +35,7 @@ HTML::Proofer.new(
 
         ## Mangle links. If we enable external link checking, this will
         ## require updating
-        :href_swap => {
+        :swap_urls => {
           ## (Hack) Append '$' to the ends of filenames we don't want to append .html to
           /(css|png|rss|pdf|jpg|asc|xml)$/ => '\1$',
 
@@ -61,6 +59,6 @@ HTML::Proofer.new(
         ## for settings specific to particular systems, but for now I
         ## think 2 is a good setting for Travis CI ("1.5 processors")
         ## and me (usually 2 processors)
-        :parallel => { :in_processes => 2 },
+        :concurrency => 2,
     }
 ).run
