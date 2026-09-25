@@ -19,7 +19,7 @@ module Jekyll
     def conferences
       conferences = []
       # Loop in _events.yml
-      YAML.load_file('_events.yml', permitted_classes: [Date, Time], aliases: true).each do |data|
+      YAML.load_file('_events.yml', permitted_classes: [Date, Time], aliases: false).each do |data|
         # Skip event if it has started more than five days ago
 	date = data['date'].to_s.split('-')
         next if Time.new.to_i > (Time.new(date[0].to_i,date[1].to_i,date[2].to_i).to_i + 432000)

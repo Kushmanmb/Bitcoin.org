@@ -34,7 +34,7 @@ module Jekyll
       end
 
       #Load redirections
-      redirects = YAML.load_file("_config.yml", permitted_classes: [Date, Time], aliases: true)['redirects']
+      redirects = YAML.load_file("_config.yml", permitted_classes: [Date, Time], aliases: false)['redirects']
       #Generate each redirection page
       if !File.directory?(site.dest)
         Dir.mkdir(site.dest)

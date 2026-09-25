@@ -34,7 +34,7 @@ module Jekyll
         if lang != 'en' and !enabled.nil? and !enabled.include?(lang)
           next
         end
-        locs[lang] = YAML.load_file('_translations/'+file, permitted_classes: [Date, Time], aliases: true)[lang]
+        locs[lang] = YAML.load_file('_translations/'+file, aliases: false)[lang]
       end
       #Create destination directory if does not exists
       if !File.directory?(site.dest)

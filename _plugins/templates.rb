@@ -36,7 +36,7 @@ module Jekyll
           print 'Lang ' + lang + ' disabled' + "\n"
           next
         end
-        locs[lang] = YAML.load_file("_translations/"+file, permitted_classes: [Date, Time], aliases: true)[lang]
+        locs[lang] = YAML.load_file("_translations/"+file, aliases: false)[lang]
       end
       #Generate each translated page based on templates
       if !File.directory?(site.dest)
