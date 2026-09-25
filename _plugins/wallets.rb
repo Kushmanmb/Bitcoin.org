@@ -2,6 +2,7 @@
 # http://opensource.org/licenses/MIT.
 
 require 'yaml'
+require 'date'
 
 module Jekyll
 
@@ -67,7 +68,7 @@ module Jekyll
           puts('Lang ' + lang + ' disabled')
           next
         end
-        locs[lang] = YAML.load_file("_translations/"+file)[lang]
+        locs[lang] = YAML.load_file("_translations/"+file, aliases: false)[lang]
       end
 
       # Getting information about each found wallet
@@ -76,7 +77,7 @@ module Jekyll
 
         platformsCol.docs.each do |doc|
           file = doc.path
-          data = YAML.load_file(file)
+          data = YAML.load_file(file, aliases: true)
           platform = data['platform']
           os = data['os']
           if platform['name'] == os['name']
@@ -97,7 +98,7 @@ module Jekyll
 
         walletsCol.docs.each do |doc|
           file = doc.path
-          wallet = YAML.load_file(file)
+          wallet = YAML.load_file(file, aliases: true)
           walletPlatforms = wallet['platform']
 
           # Going through all available combinations of
