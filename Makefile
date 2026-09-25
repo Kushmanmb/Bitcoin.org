@@ -112,6 +112,9 @@ build:
 check-for-build-errors:
 	$S egrep -i '(error|warn|exception)' $(JEKYLL_LOG) \
 	    | grep -vi 'rouge/lexers/shell.rb' \
+	    | grep -vi 'DEPRECATION WARNING \[import\]: Sass @import rules are deprecated' \
+	    | grep -vi 'repetitive deprecation warnings omitted' \
+	    | grep -vi 'Run in verbose mode to see all warnings\.' \
 	    | eval $(ERROR_ON_OUTPUT)
 
 
